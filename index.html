@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Top 25 Highest Grossing Movies of All Time</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;600;700&family=Source+Code+Pro:wght@300;400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" /
+  >
+
+  <style>
+    /* ─────────────────────────────────────
+       CUSTOM PROPERTIES
+    ───────────────────────────────────── */
+    :root {
+      --gold:        #D4AF37;
+      --gold-light:  #F0D060;
+      --gold-dim:    #9A7C1A;
+      --silver:      #C8C8C8;
+      --bronze:      #CD7F32;
+      --crimson:     #8B0000;
+      --bg:          #07070D;
+      --bg-1:        #0D0D18;
+      --bg-2:        #11111E;
+      --text:        #F2E6C9;
+      --muted:       #7A6E58;
+      --border:      rgba(212,175,55,.14);
+    }
+ 
+    /* ─────────────────────────────────────
+       RESET & BASE
+    ───────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+    html { scroll-behavior: smooth; }
+ 
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'EB Garamond', Georgia, serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+ 
+    /* Atmospheric background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 40% at 50% 0%,  rgba(212,175,55,.06) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 0%   50%, rgba(139,0,0,.04)    0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 100% 50%, rgba(139,0,0,.04)    0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+ 
+    /* Noise-grain overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      opacity: .025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      pointer-events: none;
+      z-index: 0;
+    }
+ 
+    /* ─────────────────────────────────────
+       LAYOUT WRAPPER
+    ───────────────────────────────────── */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 72px 24px 96px;
+    }
+ 
+    /* ─────────────────────────────────────
+       HEADER
+    ───────────────────────────────────── */
+    .header { text-align: center; margin-bottom: 64px; }
+ 
+    .eyebrow {
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 7px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 22px;
+      opacity: 0;
+      animation: fromTop .7s ease .1s forwards;
+    }
+ 
+    .main-title {
+      font-family: 'Cinzel Decorative', 'Cinzel', serif;
+      font-size: clamp(26px, 4.5vw, 52px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: .01em;
+      background: linear-gradient(135deg, var(--gold-dim) 0%, var(--gold) 35%, var(--gold-light) 55%, var(--gold) 75%, var(--gold-dim) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      opacity: 0;
+      animation: fromTop .7s ease .25s forwards;
+    }
+ 
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 26px 0;
+      opacity: 0;
+      animation: fromTop .7s ease .4s forwards;
+    }
+    .ornament .line {
+      flex: 1;
+      max-width: 220px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+    }
+    .ornament .gem {
+      width: 7px; height: 7px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      box-shadow: 0 0 8px var(--gold);
+    }
+ 
+    .sub-title {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--muted);
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fromTop .7s ease .5s forwards;
+    }
+ 
+    /* ─────────────────────────────────────
+       LEGEND CHIPS
+    ───────────────────────────────────── */
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+      opacity: 0;
+      animation: fromTop .7s ease .65s forwards;
+    }
+    .chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .chip-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+    .chip-dot.g { background: var(--gold); }
+    .chip-dot.s { background: var(--silver); }
+    .chip-dot.b { background: var(--bronze); }
+ 
+    /* ─────────────────────────────────────
+       FILM STRIP
+    ───────────────────────────────────── */
+    .strip {
+      background: linear-gradient(90deg, var(--gold-dim), #7A5E10, var(--gold-dim));
+      padding: 5px 0;
+      display: flex;
+      gap: 3px;
+      overflow: hidden;
+    }
+    .hole {
+      flex-shrink: 0;
+      width: 13px; height: 9px;
+      background: var(--bg);
+      border-radius: 2px;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,.6);
+    }
+ 
+    /* ─────────────────────────────────────
+       TABLE SHELL
+    ───────────────────────────────────── */
+    .shell {
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px var(--border),
+        0 24px 64px rgba(0,0,0,.75),
+        0  0 80px rgba(212,175,55,.04);
+      opacity: 0;
+      animation: fromBottom .8s ease .75s forwards;
+    }
+ 
+    /* ─────────────────────────────────────
+       TABLE
+    ───────────────────────────────────── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-1);
+    }
+ 
+    /* HEAD */
+    thead tr {
+      background: linear-gradient(180deg, #18130A 0%, #0E0B04 100%);
+      border-bottom: 1px solid rgba(212,175,55,.3);
+    }
+    thead th {
+      font-family: 'Cinzel', serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 18px 16px;
+      text-align: left;
+      white-space: nowrap;
+    }
+    thead th.c { text-align: center; }
+    thead th.r { text-align: right; }
+ 
+    /* BODY ROWS */
+    tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,.04);
+      transition: background .25s ease;
+      opacity: 0;
+      animation: rowIn .45s ease forwards;
+      cursor: default;
+    }
+ 
+    /* Staggered delays */
+    tbody tr:nth-child(1)  { animation-delay: 1.0s; }
+    tbody tr:nth-child(2)  { animation-delay: 1.06s; }
+    tbody tr:nth-child(3)  { animation-delay: 1.12s; }
+    tbody tr:nth-child(4)  { animation-delay: 1.18s; }
+    tbody tr:nth-child(5)  { animation-delay: 1.24s; }
+    tbody tr:nth-child(6)  { animation-delay: 1.30s; }
+    tbody tr:nth-child(7)  { animation-delay: 1.36s; }
+    tbody tr:nth-child(8)  { animation-delay: 1.42s; }
+    tbody tr:nth-child(9)  { animation-delay: 1.48s; }
+    tbody tr:nth-child(10) { animation-delay: 1.54s; }
+    tbody tr:nth-child(11) { animation-delay: 1.60s; }
+    tbody tr:nth-child(12) { animation-delay: 1.66s; }
+    tbody tr:nth-child(13) { animation-delay: 1.72s; }
+    tbody tr:nth-child(14) { animation-delay: 1.78s; }
+    tbody tr:nth-child(15) { animation-delay: 1.84s; }
+    tbody tr:nth-child(16) { animation-delay: 1.90s; }
+    tbody tr:nth-child(17) { animation-delay: 1.96s; }
+    tbody tr:nth-child(18) { animation-delay: 2.02s; }
+    tbody tr:nth-child(19) { animation-delay: 2.08s; }
+    tbody tr:nth-child(20) { animation-delay: 2.14s; }
+    tbody tr:nth-child(21) { animation-delay: 2.20s; }
+    tbody tr:nth-child(22) { animation-delay: 2.26s; }
+    tbody tr:nth-child(23) { animation-delay: 2.32s; }
+    tbody tr:nth-child(24) { animation-delay: 2.38s; }
+    tbody tr:nth-child(25) { animation-delay: 2.44s; }
+ 
+    /* Medal row bases */
+    tbody tr.r1 { background: linear-gradient(90deg, rgba(212,175,55,.13) 0%, rgba(212,175,55,.03) 60%, transparent 100%); }
+    tbody tr.r2 { background: linear-gradient(90deg, rgba(200,200,200,.08) 0%, rgba(200,200,200,.02) 60%, transparent 100%); }
+    tbody tr.r3 { background: linear-gradient(90deg, rgba(205,127,50,.08) 0%, rgba(205,127,50,.02) 60%, transparent 100%); }
+ 
+    /* Hover states */
+    tbody tr:hover              { background: rgba(212,175,55,.06) !important; }
+    tbody tr.r1:hover           { background: rgba(212,175,55,.18) !important; }
+    tbody tr.r2:hover           { background: rgba(200,200,200,.13) !important; }
+    tbody tr.r3:hover           { background: rgba(205,127,50,.13) !important; }
+ 
+    /* CELLS */
+    td { padding: 13px 16px; vertical-align: middle; }
+ 
+    /* Rank */
+    .td-rank { text-align: center; width: 64px; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 12px;
+    }
+    .badge.medal-1 {
+      background: linear-gradient(135deg, #7A5E10, var(--gold), var(--gold-light), var(--gold));
+      color: #1A1200;
+      box-shadow: 0 0 14px rgba(212,175,55,.55), inset 0 1px 0 rgba(255,255,255,.3);
+    }
+    .badge.medal-2 {
+      background: linear-gradient(135deg, #686868, var(--silver), #F0F0F0, var(--silver));
+      color: #141414;
+      box-shadow: 0 0 10px rgba(200,200,200,.3);
+    }
+    .badge.medal-3 {
+      background: linear-gradient(135deg, #7A4210, var(--bronze), #E8A050, var(--bronze));
+      color: #1A0800;
+      box-shadow: 0 0 10px rgba(205,127,50,.3);
+    }
+    .badge.plain {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.09);
+      color: var(--muted);
+      font-size: 11px;
+    }
+ 
+    /* Year */
+    .td-year {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 1px;
+      color: var(--muted);
+      width: 60px;
+      white-space: nowrap;
+    }
+ 
+    /* Title */
+    .td-title {
+      font-family: 'Cinzel', serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: .3px;
+      color: var(--text);
+    }
+    .r1 .td-title { color: var(--gold-light); }
+    .r2 .td-title { color: #DCDCDC; }
+    .r3 .td-title { color: #E8A050; }
+ 
+    /* Earnings */
+    .td-earn { text-align: right; min-width: 195px; }
+    .earn-num {
+      display: block;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 7px;
+      white-space: nowrap;
+    }
+    .r1 .earn-num { color: var(--gold); }
+    .r2 .earn-num { color: var(--silver); }
+    .r3 .earn-num { color: var(--bronze); }
+ 
+    .bar-track {
+      width: 100%;
+      height: 3px;
+      background: rgba(255,255,255,.06);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 2px;
+      width: 0;
+      transition: width 1.6s cubic-bezier(.22,1,.36,1);
+    }
+    .r1 .bar-fill { background: linear-gradient(90deg, var(--gold-dim), var(--gold-light)); }
+    .r2 .bar-fill { background: linear-gradient(90deg, #606060, #E8E8E8); }
+    .r3 .bar-fill { background: linear-gradient(90deg, #7A4210, #E8A050); }
+    tr:not(.r1):not(.r2):not(.r3) .bar-fill {
+      background: linear-gradient(90deg, rgba(212,175,55,.15), rgba(212,175,55,.45));
+    }
+ 
+    /* ─────────────────────────────────────
+       FOOTER NOTE
+    ───────────────────────────────────── */
+    .footnote {
+      text-align: center;
+      margin-top: 28px;
+      font-family: 'Cinzel', serif;
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      color: var(--muted);
+      text-transform: uppercase;
+      line-height: 1.9;
+      opacity: 0;
+      animation: fromBottom .7s ease 3.0s forwards;
+    }
+    .footnote a { color: var(--gold-dim); text-decoration: none; }
+    .footnote a:hover { color: var(--gold); }
+ 
+    /* ─────────────────────────────────────
+       SCROLLBAR
+    ───────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
+ 
+    /* ─────────────────────────────────────
+       KEYFRAMES
+    ───────────────────────────────────── */
+    @keyframes fromTop {
+      from { opacity: 0; transform: translateY(-12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fromBottom {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes rowIn {
+      from { opacity: 0; transform: translateX(-14px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+ 
+    /* ─────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────── */
+    @media (max-width: 640px) {
+      .td-year { display: none; }
+      .td-title { font-size: 12px; }
+      .earn-num { font-size: 11px; }
+      .td-earn  { min-width: 140px; }
+    }
+  </style>
+</head>
+<body>
+ 
+<div class="page">
+ 
+  <!-- ═══ HEADER ═══ -->
+  <header class="header">
+    <p class="eyebrow">All-Time Box Office Records</p>
+    <h1 class="main-title">The Silver Screen's&nbsp;Greatest</h1>
+    <div class="ornament">
+      <div class="line"></div>
+      <div class="gem"></div>
+      <div class="gem" style="margin: 0 -8px; opacity:.4; transform:rotate(45deg) scale(.6)"></div>
+      <div class="gem"></div>
+      <div class="line"></div>
+    </div>
+    <p class="sub-title">Top 25 Highest Grossing Films &nbsp;·&nbsp; Worldwide Theatrical Earnings</p>
+  </header>
+ 
+  <!-- ═══ MEDAL LEGEND ═══ -->
+  <div class="legend">
+    <div class="chip"><div class="chip-dot g"></div>Gold — #1</div>
+    <div class="chip"><div class="chip-dot s"></div>Silver — #2</div>
+    <div class="chip"><div class="chip-dot b"></div>Bronze — #3</div>
+  </div>
+ 
+  <!-- ═══ TABLE SHELL ═══ -->
+  <div class="shell" id="shell">
+ 
+    <div class="strip" id="strip-top"></div>
+ 
+    <table>
+      <thead>
+        <tr>
+          <th class="c">Rank</th>
+          <th>Year</th>
+          <th>Title</th>
+          <th class="r">Worldwide Gross</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+ 
+    <div class="strip" id="strip-bot"></div>
+ 
+  </div><!-- /shell -->
+ 
+  <p class="footnote">
+    Source: <a href="https://en.wikipedia.org/wiki/List_of_highest-grossing_films" target="_blank">Wikipedia — List of highest-grossing films</a>
+    &nbsp;·&nbsp; Figures reflect total nominal worldwide theatrical gross
+    &nbsp;·&nbsp; Not adjusted for inflation
+    <br>† Ne Zha 2 (2025) gross is approximate; final audited total pending
+  </p>
+ 
+</div><!-- /page -->
+ 
+<script>
+  /* ── DATA ─────────────────────────────────────────────────────────────── */
+  const movies = [
+    { rank:  1, year: 2009, title: "Avatar",                                       gross: 2923706026 },
+    { rank:  2, year: 2019, title: "Avengers: Endgame",                            gross: 2799439100 },
+    { rank:  3, year: 2022, title: "Avatar: The Way of Water",                     gross: 2320250281 },
+    { rank:  4, year: 1997, title: "Titanic",                                      gross: 2264743305 },
+    { rank:  5, year: 2025, title: "Ne Zha 2 †",                                   gross: 2148000000 },
+    { rank:  6, year: 2015, title: "Star Wars: The Force Awakens",                 gross: 2071310218 },
+    { rank:  7, year: 2018, title: "Avengers: Infinity War",                       gross: 2048359754 },
+    { rank:  8, year: 2021, title: "Spider-Man: No Way Home",                      gross: 1921847111 },
+    { rank:  9, year: 2024, title: "Inside Out 2",                                 gross: 1698722803 },
+    { rank: 10, year: 2015, title: "Jurassic World",                               gross: 1671713208 },
+    { rank: 11, year: 2019, title: "The Lion King",                                gross: 1663075401 },
+    { rank: 12, year: 2012, title: "The Avengers",                                 gross: 1519557910 },
+    { rank: 13, year: 2015, title: "Furious 7",                                    gross: 1516045911 },
+    { rank: 14, year: 2022, title: "Top Gun: Maverick",                            gross: 1492594578 },
+    { rank: 15, year: 2019, title: "Frozen II",                                    gross: 1450026933 },
+    { rank: 16, year: 2015, title: "Avengers: Age of Ultron",                      gross: 1405403694 },
+    { rank: 17, year: 2023, title: "The Super Mario Bros. Movie",                  gross: 1362872770 },
+    { rank: 18, year: 2018, title: "Black Panther",                                gross: 1349926083 },
+    { rank: 19, year: 2011, title: "Harry Potter and the Deathly Hallows – Part 2",gross: 1342359942 },
+    { rank: 20, year: 2017, title: "Star Wars: The Last Jedi",                     gross: 1332539889 },
+    { rank: 21, year: 2018, title: "Jurassic World: Fallen Kingdom",               gross: 1309484461 },
+    { rank: 22, year: 2013, title: "Frozen",                                       gross: 1280802282 },
+    { rank: 23, year: 2017, title: "Beauty and the Beast",                         gross: 1263521126 },
+    { rank: 24, year: 2018, title: "Incredibles 2",                                gross: 1242805359 },
+    { rank: 25, year: 2017, title: "The Fate of the Furious",                      gross: 1236005788 },
+  ];
+ 
+  const TOP = movies[0].gross; // baseline for bar widths
+ 
+  function fmt(n) {
+    return '$' + n.toLocaleString('en-US');
+  }
+ 
+  function medalClass(r) {
+    return r === 1 ? 'medal-1' : r === 2 ? 'medal-2' : r === 3 ? 'medal-3' : 'plain';
+  }
+ 
+  function rowClass(r) {
+    return r === 1 ? 'r1' : r === 2 ? 'r2' : r === 3 ? 'r3' : '';
+  }
+ 
+  /* ── BUILD ROWS ──────────────────────────────────────────────────────── */
+  const tbody = document.getElementById('tbody');
+ 
+  movies.forEach(m => {
+    const pct = ((m.gross / TOP) * 100).toFixed(2);
+    const tr  = document.createElement('tr');
+    tr.className = rowClass(m.rank);
+ 
+    tr.innerHTML = `
+      <td class="td-rank">
+        <span class="badge ${medalClass(m.rank)}">${m.rank}</span>
+      </td>
+      <td class="td-year">${m.year}</td>
+      <td class="td-title">${m.title}</td>
+      <td class="td-earn">
+        <span class="earn-num">${fmt(m.gross)}</span>
+        <div class="bar-track"><div class="bar-fill" data-pct="${pct}"></div></div>
+      </td>`;
+ 
+    tbody.appendChild(tr);
+  });
+ 
+  /* ── BUILD FILM STRIPS ───────────────────────────────────────────────── */
+  ['strip-top', 'strip-bot'].forEach(id => {
+    const el = document.getElementById(id);
+    for (let i = 0; i < 70; i++) {
+      const h = document.createElement('div');
+      h.className = 'hole';
+      el.appendChild(h);
+    }
+  });
+ 
+  /* ── ANIMATE BARS (after rows appear) ───────────────────────────────── */
+  setTimeout(() => {
+    document.querySelectorAll('.bar-fill').forEach(bar => {
+      bar.style.width = bar.dataset.pct + '%';
+    });
+  }, 2600);
+ 
+</script>
+</body>
+</html>
+ 
+
